@@ -1,0 +1,13 @@
+/data/raw/
+/runs/
+__pycache__/
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.DS_Store
+.idea/
+.venv/
+# Drawn on demand by scripts/update_diagram.py --with-tests
+/docs/classes_with_tests.*
