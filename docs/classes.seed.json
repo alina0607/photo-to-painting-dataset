@@ -1,5 +1,260 @@
 {
   "version": 1,
-  "nodes": [],
-  "relations": []
+  "nodes": [
+    {
+      "key": "photo2painting/ingest.py#Cutout",
+      "name": "Cutout",
+      "module": "photo2painting/ingest.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "The painter's input for one cat (the fields `brushgpt.cat.load_inputs` reads).\n\nAttributes:\n    target: the head on white, (256, 256, 3) uint8.\n    tri: (256, 256) uint8, 0 background, 1 head, 2 uncertain.\n    points: the nine face points on the 256 grid, float32.\n    box: the square in the photo's pixels (left, top, right, bottom).",
+      "attributes": [
+        [
+          "target",
+          "np.ndarray"
+        ],
+        [
+          "tri",
+          "np.ndarray"
+        ],
+        [
+          "points",
+          "np.ndarray"
+        ],
+        [
+          "box",
+          "tuple[int, int, int, int]"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#Measures",
+      "name": "Measures",
+      "module": "photo2painting/ingest.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "The numbers the quality rules read (see `photo2painting.rules`).\n\nAttributes:\n    eye_dist_px: distance between the eyes in the photo's pixels.\n    face_cover: share of the face hull inside the mask (`face_cover`).\n    tip_cover: the mask's value near each ear tip, the smaller of the two\n        (0 when a tip is outside the photo).\n    tips_in_photo: both ear tips within `TIP_SLACK` eye distances of the photo.\n    eye_contrast: standard deviation of the luminance near the eyes; a photo too\n        dark to see the eyes has almost none.\n    eye_lum: mean luminance near the eyes.\n    photo_w: the photo's width in pixels.\n    photo_h: the photo's height in pixels.",
+      "attributes": [
+        [
+          "eye_dist_px",
+          "float"
+        ],
+        [
+          "face_cover",
+          "float"
+        ],
+        [
+          "tip_cover",
+          "float"
+        ],
+        [
+          "tips_in_photo",
+          "bool"
+        ],
+        [
+          "eye_contrast",
+          "float"
+        ],
+        [
+          "eye_lum",
+          "float"
+        ],
+        [
+          "photo_w",
+          "int"
+        ],
+        [
+          "photo_h",
+          "int"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#RawCat",
+      "name": "RawCat",
+      "module": "photo2painting/ingest.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "One raw photo and what comes with it.\n\nAttributes:\n    source: \"afhq\" or \"cat\" (the CAT dataset).\n    cat_id: the photo's name within its source.\n    photo: path to the photo file.\n    mask: path to the subject mask (a grey image, white = cat).\n    points: the nine face points in the photo's pixels, shape (9, 2).",
+      "attributes": [
+        [
+          "source",
+          "str"
+        ],
+        [
+          "cat_id",
+          "str"
+        ],
+        [
+          "photo",
+          "Path"
+        ],
+        [
+          "mask",
+          "Path"
+        ],
+        [
+          "points",
+          "np.ndarray"
+        ]
+      ],
+      "methods": [
+        {
+          "name": "name",
+          "doc": "The name used everywhere downstream: ``<source>__<cat_id>``.",
+          "source": "@property\ndef name(self) -> str:\n    \"\"\"The name used everywhere downstream: ``<source>__<cat_id>``.\"\"\"\n    return f\"{self.source}__{self.cat_id}\""
+        }
+      ]
+    },
+    {
+      "key": "photo2painting/ingest.py#afhq_cats",
+      "name": "afhq_cats",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The AFHQ cats with predicted face points.\n\nArgs:\n    labels: an .npz with ``ids`` (paths relative to ``photos``) and ``points``.\n    photos: the AFHQ root folder.\n    masks: the folder of subject masks, ``<stem>_mask1.png``.\n\nYields:\n    One RawCat per photo, in the order of the labels file.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#cat_dataset_cats",
+      "name": "cat_dataset_cats",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The CAT dataset's cats that have a subject mask, with their hand-placed points.\n\nArgs:\n    zips: the dataset's zip files; each photo has a ``.jpg.cat`` text file next to\n        it: the number of points (9), then 18 numbers, x and y of each point.\n    photos: where the photos were extracted, named ``<zip>__<folder>__<file>.jpg``.\n    masks: the folder of subject masks, ``<stem>_mask1.png``.\n\nYields:\n    One RawCat per photo with a mask, sorted by name.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#cutout",
+      "name": "cutout",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Cut the head out of a photo onto the 256 px grid (see the module docstring).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#face_cover",
+      "name": "face_cover",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The share of the face that the subject mask calls cat.\n\nThe face is the convex hull of the eyes, the mouth and the four ear bases (the ear\ntips are left out: between two tips the hull is background). A mask that misses\npart of the face would put white paper into the painting's face.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#head_box",
+      "name": "head_box",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The square around a head mask, `CROP_MARGIN` times its larger side.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#head_shape",
+      "name": "head_shape",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The head alone as a boolean mask of ``shape`` (height, width).\n\nIn the face's frame: a superellipse (power `HEAD_POWER`) from the highest ear base\ndown to `HEAD_CHIN` below the mouth, as wide as the widest ear base or half an eye\ndistance plus `HEAD_SIDE`; plus each ear's triangle scaled by `EAR_SCALE` about its\ncentre and widened by `EAR_PAD`. Generous on purpose: the ear's real edge comes\nfrom the subject mask it is intersected with.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#load",
+      "name": "load",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The photo (RGB) and its subject mask resized to the photo, 0-1.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#luminance",
+      "name": "luminance",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Luminance (ITU-R 601 weights) of an RGB image in 0-1.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#measure",
+      "name": "measure",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Measure one photo for the quality rules.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#parse_cat_points",
+      "name": "parse_cat_points",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The nine points of a CAT dataset ``.cat`` file, shape (9, 2).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/ingest.py#square",
+      "name": "square",
+      "module": "photo2painting/ingest.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "A square box (left, top, right, bottom) of ``side`` pixels about ``centre``.",
+      "attributes": [],
+      "methods": []
+    }
+  ],
+  "relations": [
+    {
+      "src": "photo2painting/ingest.py#cat_dataset_cats",
+      "dst": "photo2painting/ingest.py#parse_cat_points",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#cutout",
+      "dst": "photo2painting/ingest.py#head_box",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#cutout",
+      "dst": "photo2painting/ingest.py#head_shape",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#head_box",
+      "dst": "photo2painting/ingest.py#square",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#measure",
+      "dst": "photo2painting/ingest.py#face_cover",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#measure",
+      "dst": "photo2painting/ingest.py#luminance",
+      "kind": "calls",
+      "lazy": false
+    }
+  ]
 }
