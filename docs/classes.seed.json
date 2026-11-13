@@ -217,6 +217,53 @@
       "doc": "A square box (left, top, right, bottom) of ``side`` pixels about ``centre``.",
       "attributes": [],
       "methods": []
+    },
+    {
+      "key": "photo2painting/rules.py#Thresholds",
+      "name": "Thresholds",
+      "module": "photo2painting/rules.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "The rules' thresholds.\n\nAttributes:\n    min_face: the face hull's share inside the mask; below it, \"face cut\".\n    min_tip: the mask's value near the ear tips; below it, \"ear cut\".\n    min_contrast: the luminance spread near the eyes; below it, \"too dark\".\n    min_eye_px: the eye distance in pixels; below it, \"eyes too small\".",
+      "attributes": [
+        [
+          "min_face",
+          "float"
+        ],
+        [
+          "min_tip",
+          "float"
+        ],
+        [
+          "min_contrast",
+          "float"
+        ],
+        [
+          "min_eye_px",
+          "float"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/rules.py#ear_reason",
+      "name": "ear_reason",
+      "module": "photo2painting/rules.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Why an ear cannot teach the ear model, or \"\" when it can.\n\nIts base must be inside the photo and wide enough, and its middle inside the mask\n(not hidden or cut away). A cut-off tip is fine.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/rules.py#reasons",
+      "name": "reasons",
+      "module": "photo2painting/rules.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "For each model in `MODELS`, why the photo is left out (\"\" = kept).\n\nArgs:\n    m: the photo's measures (`photo2painting.ingest.measure`).\n    points: the nine face points in the photo's pixels.\n    mask: the subject mask, 0-1, the photo's size.\n    t: the thresholds; the defaults when None.\n\nReturns:\n    A dict from model name to the reasons, joined by \"; \".",
+      "attributes": [],
+      "methods": []
     }
   ],
   "relations": [
@@ -253,6 +300,12 @@
     {
       "src": "photo2painting/ingest.py#measure",
       "dst": "photo2painting/ingest.py#luminance",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/rules.py#reasons",
+      "dst": "photo2painting/rules.py#ear_reason",
       "kind": "calls",
       "lazy": false
     }
