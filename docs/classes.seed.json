@@ -665,6 +665,84 @@
       "methods": []
     },
     {
+      "key": "photo2painting/integrity.py#ScanSummary",
+      "name": "ScanSummary",
+      "module": "photo2painting/integrity.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "A folder of paintings scanned.\n\nAttributes:\n    paintings: how many paintings were checked.\n    bad_canvas: names of the paintings whose canvas is not finite.\n    bad_strokes: names of the paintings with a non-finite stroke.",
+      "attributes": [
+        [
+          "paintings",
+          "int"
+        ],
+        [
+          "bad_canvas",
+          "list[str]"
+        ],
+        [
+          "bad_strokes",
+          "list[str]"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/integrity.py#StageCheck",
+      "name": "StageCheck",
+      "module": "photo2painting/integrity.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "One stage file checked.\n\nAttributes:\n    canvas_finite: every canvas pixel is finite.\n    bad_strokes: per layer index, how many strokes have a non-finite field.",
+      "attributes": [
+        [
+          "canvas_finite",
+          "bool"
+        ],
+        [
+          "bad_strokes",
+          "dict[int, int]"
+        ]
+      ],
+      "methods": [
+        {
+          "name": "ok",
+          "doc": "Nothing non-finite anywhere.",
+          "source": "@property\ndef ok(self) -> bool:\n    \"\"\"Nothing non-finite anywhere.\"\"\"\n    return self.canvas_finite and not self.bad_strokes"
+        }
+      ]
+    },
+    {
+      "key": "photo2painting/integrity.py#bad_stroke_mask",
+      "name": "bad_stroke_mask",
+      "module": "photo2painting/integrity.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "For one layer, True for each stroke with any non-finite field.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/integrity.py#check_stage",
+      "name": "check_stage",
+      "module": "photo2painting/integrity.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Check one stage file.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/integrity.py#scan",
+      "name": "scan",
+      "module": "photo2painting/integrity.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Check the given stage of every painting folder (one folder per cat).",
+      "attributes": [],
+      "methods": []
+    },
+    {
       "key": "photo2painting/rules.py#Thresholds",
       "name": "Thresholds",
       "module": "photo2painting/rules.py",
@@ -818,6 +896,18 @@
     {
       "src": "photo2painting/ingest.py#measure",
       "dst": "photo2painting/ingest.py#luminance",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/integrity.py#check_stage",
+      "dst": "photo2painting/integrity.py#bad_stroke_mask",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/integrity.py#scan",
+      "dst": "photo2painting/integrity.py#check_stage",
       "kind": "calls",
       "lazy": false
     },
