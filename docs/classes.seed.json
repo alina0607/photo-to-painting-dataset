@@ -213,6 +213,241 @@
       "methods": []
     },
     {
+      "key": "photo2painting/eye_quality.py#Cut",
+      "name": "Cut",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "What removing every cat scored above a threshold does to the labelled cats.\n\nAttributes:\n    threshold: the cut.\n    removed: cats removed.\n    wrongly_removed_share: of the removed, the share labelled clear.\n    unclear_caught: labelled-unclear cats removed.\n    clear_lost: labelled-clear cats removed.",
+      "attributes": [
+        [
+          "threshold",
+          "float"
+        ],
+        [
+          "removed",
+          "int"
+        ],
+        [
+          "wrongly_removed_share",
+          "float"
+        ],
+        [
+          "unclear_caught",
+          "int"
+        ],
+        [
+          "clear_lost",
+          "int"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#EyeMeasure",
+      "name": "EyeMeasure",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "One eye measured inside the sketch plan's outline (256 px cut-out).\n\nAttributes:\n    eye_px: the outline's area in pixels.\n    pupil_ok: the plan found a real pupil (not a sliver).\n    contrast: the iris's median lightness (L*) minus the pupil's.\n    score: ``contrast`` when ``pupil_ok``, else 0.\n    iris_lab: the iris's median L*, a*, b*.",
+      "attributes": [
+        [
+          "eye_px",
+          "int"
+        ],
+        [
+          "pupil_ok",
+          "bool"
+        ],
+        [
+          "contrast",
+          "float"
+        ],
+        [
+          "score",
+          "float"
+        ],
+        [
+          "iris_lab",
+          "tuple[float, float, float]"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#Interval",
+      "name": "Interval",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "A statistic with a percentile bootstrap interval.",
+      "attributes": [
+        [
+          "value",
+          "float"
+        ],
+        [
+          "low",
+          "float"
+        ],
+        [
+          "high",
+          "float"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#_box",
+      "name": "_box",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#bootstrap",
+      "name": "bootstrap",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "A bootstrap interval for \"auc\" or \"accuracy\" (at 0.5) of out-of-fold scores.\n\nThe labelled cats are resampled with replacement ``n`` times; the interval is the\nmiddle ``level`` of the statistic over the resamples.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#calibration",
+      "name": "calibration",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Reliability: for each score bin, the mean score, the share truly unclear and the\ncount (empty bins left out).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#clip_input",
+      "name": "clip_input",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Images as CLIP's input: 224 px, scaled to 0-1, normalised, channels first.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#crop_features",
+      "name": "crop_features",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "One cat's feature from its three unit-length crop embeddings (3, 512): both eyes,\nthen the element-wise min and max of the two single eyes (so left and right do not\nmatter), 1536 numbers.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#crops",
+      "name": "crops",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Three crops of the levelled photo: both eyes, the image's left eye, the right.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#cut",
+      "name": "cut",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The effect of removing the cats with P(unclear) above ``threshold``.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#cv_scores",
+      "name": "cv_scores",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Out-of-fold P(unclear) for every labelled cat (stratified k-fold).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#eye_measures",
+      "name": "eye_measures",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Measure each eye of a cut-out photo (RGB 0-1) inside the plan's outlines.\n\nArgs:\n    photo: the 256 px cut-out, float RGB in 0-1.\n    eyes: each eye's outline (m, 2) on the 256 grid.\n    pupils: each pupil's ellipse: centre x, y, the two radii and the angle.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#level",
+      "name": "level",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The photo turned about the eyes' midpoint so the eyes are level.\n\nReturns:\n    The turned image, the eyes' midpoint, the eye distance and the two eyes'\n    positions after turning.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#measured_row",
+      "name": "measured_row",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The five measured numbers of a cat (see `MEASURED`), unscaled.\n\nThe smaller eye's area over the eye distance squared (squinting), the smaller over\nthe larger (one eye hidden), the irises' lightness and colour gaps (a shadow over\none eye), and the worse eye's pupil score.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#model",
+      "name": "model",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The classifier.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#nested_threshold",
+      "name": "nested_threshold",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Choose the threshold inside each outer fold and measure it on that fold.\n\nFor every outer fold, the threshold is picked (`pick_threshold`) from inner\nout-of-fold scores of the other folds, then a model fitted on those folds scores\nthe held fold and the cut is applied there. Nothing about the held fold informs its\nthreshold.\n\nReturns:\n    The threshold each fold chose, and the pooled cut over all held folds.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#pick_threshold",
+      "name": "pick_threshold",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The lowest threshold whose removed cats are at most ``max_wrong`` clear ones\n(so the most unclear cats are caught at that cost); the highest of the grid when\nnone qualifies.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/eye_quality.py#standardise",
+      "name": "standardise",
+      "module": "photo2painting/eye_quality.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Measured rows (n, 5, NaN where missing) standardised over all cats, missing\nvalues set to 0, and a sixth column flagging the cats with a missing value.",
+      "attributes": [],
+      "methods": []
+    },
+    {
       "key": "photo2painting/ingest.py#Cutout",
       "name": "Cutout",
       "module": "photo2painting/ingest.py",
@@ -503,8 +738,56 @@
       "lazy": false
     },
     {
+      "src": "photo2painting/eye_quality.py#crops",
+      "dst": "photo2painting/eye_quality.py#_box",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#crops",
+      "dst": "photo2painting/eye_quality.py#level",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#cv_scores",
+      "dst": "photo2painting/eye_quality.py#model",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#nested_threshold",
+      "dst": "photo2painting/eye_quality.py#cv_scores",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#nested_threshold",
+      "dst": "photo2painting/eye_quality.py#model",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#nested_threshold",
+      "dst": "photo2painting/eye_quality.py#pick_threshold",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/eye_quality.py#pick_threshold",
+      "dst": "photo2painting/eye_quality.py#cut",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
       "src": "photo2painting/ingest.py#cat_dataset_cats",
       "dst": "photo2painting/ingest.py#parse_cat_points",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/ingest.py#cutout",
+      "dst": "photo2painting/eye_quality.py#cut",
       "kind": "calls",
       "lazy": false
     },
