@@ -2,6 +2,47 @@
   "version": 1,
   "nodes": [
     {
+      "key": "photo2painting/agreement.py#Agreement",
+      "name": "Agreement",
+      "module": "photo2painting/agreement.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "Agreement between two labellings.\n\nAttributes:\n    n: the number of items labelled twice.\n    same: how many got the same answer both times.\n    observed: ``same / n``.\n    chance: the agreement expected from the answer frequencies alone.\n    kappa: Cohen's kappa.",
+      "attributes": [
+        [
+          "n",
+          "int"
+        ],
+        [
+          "same",
+          "int"
+        ],
+        [
+          "observed",
+          "float"
+        ],
+        [
+          "chance",
+          "float"
+        ],
+        [
+          "kappa",
+          "float"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/agreement.py#agreement",
+      "name": "agreement",
+      "module": "photo2painting/agreement.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Agreement between two labellings of the same items, in the same order.\n\nRaises:\n    ValueError: if the two lists differ in length or are empty.",
+      "attributes": [],
+      "methods": []
+    },
+    {
       "key": "photo2painting/ingest.py#Cutout",
       "name": "Cutout",
       "module": "photo2painting/ingest.py",
