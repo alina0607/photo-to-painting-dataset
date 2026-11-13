@@ -43,6 +43,176 @@
       "methods": []
     },
     {
+      "key": "photo2painting/duplicates.py#Alignment",
+      "name": "Alignment",
+      "module": "photo2painting/duplicates.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "Step 2's result for one pair.\n\nAttributes:\n    ncc: normalised cross-correlation of the grey overlap (-1 when no alignment\n        keeps `MIN_OVERLAP` of the grid).\n    scale: the second photo's scale onto the first.\n    shift: its shift in pixels of the 128 grid (rows, columns).\n    mirrored: whether the second photo was mirrored.\n    overlap: the share of the grid both photos cover.\n    ssim: SSIM of the grey overlap.\n    mad_rgb: mean absolute RGB difference of the overlap, 0-255.",
+      "attributes": [
+        [
+          "ncc",
+          "float"
+        ],
+        [
+          "scale",
+          "float | None"
+        ],
+        [
+          "shift",
+          "tuple[float, float] | None"
+        ],
+        [
+          "mirrored",
+          "bool | None"
+        ],
+        [
+          "overlap",
+          "float"
+        ],
+        [
+          "ssim",
+          "float"
+        ],
+        [
+          "mad_rgb",
+          "float"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#CheapScores",
+      "name": "CheapScores",
+      "module": "photo2painting/duplicates.py",
+      "kind": "class",
+      "lang": "python",
+      "doc": "Step 1's scores for every pair i < j (flat arrays in `np.triu_indices` order).\n\nAttributes:\n    i: the first photo's index.\n    j: the second photo's index.\n    corr: the 16 x 16 grey correlation.\n    corr_mirror: the same against the second photo mirrored left-right.\n    hamming: the perceptual hashes' Hamming distance (0 = identical hash).",
+      "attributes": [
+        [
+          "i",
+          "np.ndarray"
+        ],
+        [
+          "j",
+          "np.ndarray"
+        ],
+        [
+          "corr",
+          "np.ndarray"
+        ],
+        [
+          "corr_mirror",
+          "np.ndarray"
+        ],
+        [
+          "hamming",
+          "np.ndarray"
+        ]
+      ],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#_placed",
+      "name": "_placed",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "``b`` scaled and shifted, and where it covers the grid (without the grid's\n`EDGE` px border when ``trim``).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#_scaled",
+      "name": "_scaled",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "``img`` zoomed by ``s`` about its centre, back on its grid, and where real\npixels landed.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#_unit_rows",
+      "name": "_unit_rows",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#aligned_similarity",
+      "name": "aligned_similarity",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Step 2: align photo b onto photo a (128 px RGB thumbnails) and compare.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#candidates",
+      "name": "candidates",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Indices into ``s`` of the pairs worth a precise score.\n\nArgs:\n    s: step 1's scores.\n    clip: optional unit-length CLIP image features, one row per photo. Any two cat\n        photos have a high CLIP cosine, so only very high ones count, and a\n        photo's nearest neighbour a little lower.\n\nReturns:\n    The selected pair indices, sorted.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#cheap_scores",
+      "name": "cheap_scores",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Step 1 for every pair of the (n, 64, 64) grey thumbnails.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#cross_split_pairs",
+      "name": "cross_split_pairs",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The pairs whose two photos are in different splits (the leaks).",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#group_split",
+      "name": "group_split",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "A split in which every group of copies is on one side.\n\nA group goes to the first split in ``order`` that any of its photos already has\n(so evaluation photos stay where they are and their training copies move out of\ntraining); photos in no group keep their split.\n\nArgs:\n    split: photo name to split name.\n    copies: the duplicate groups (`groups`).\n    order: which split wins when a group spans several.\n\nReturns:\n    The new photo-to-split mapping.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#groups",
+      "name": "groups",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "Join pairs of copies into groups (connected components), largest first.",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "key": "photo2painting/duplicates.py#thumbnails",
+      "name": "thumbnails",
+      "module": "photo2painting/duplicates.py",
+      "kind": "function",
+      "lang": "python",
+      "doc": "The 64 px grey and 128 px RGB thumbnails (uint8) of each photo.",
+      "attributes": [],
+      "methods": []
+    },
+    {
       "key": "photo2painting/ingest.py#Cutout",
       "name": "Cutout",
       "module": "photo2painting/ingest.py",
@@ -308,6 +478,30 @@
     }
   ],
   "relations": [
+    {
+      "src": "photo2painting/duplicates.py#_placed",
+      "dst": "photo2painting/duplicates.py#_scaled",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/duplicates.py#aligned_similarity",
+      "dst": "photo2painting/duplicates.py#_placed",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/duplicates.py#aligned_similarity",
+      "dst": "photo2painting/duplicates.py#_scaled",
+      "kind": "calls",
+      "lazy": false
+    },
+    {
+      "src": "photo2painting/duplicates.py#cheap_scores",
+      "dst": "photo2painting/duplicates.py#_unit_rows",
+      "kind": "calls",
+      "lazy": false
+    },
     {
       "src": "photo2painting/ingest.py#cat_dataset_cats",
       "dst": "photo2painting/ingest.py#parse_cat_points",
