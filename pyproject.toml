@@ -29,6 +29,8 @@ brush-gpt = { git = "https://github.com/alina0607/brush-gpt", rev = "f01671c" }
 # On Linux (including CI) install the CPU build of torch: the default Linux wheel
 # pulls several gigabytes of CUDA libraries that a machine without a GPU never uses.
 torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
+# Class-diagram tool (scripts/update_diagram.py), pinned to a commit of its repo.
+cartograph = { git = "https://github.com/alina0607/cartograph", subdirectory = "extractor", rev = "36f43d41229e269135e8f9634b5498ed3a479437" }
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
@@ -37,6 +39,7 @@ explicit = true
 
 [dependency-groups]
 dev = [
+    "cartograph",
     "mypy>=2.4.1",
     "pre-commit>=4.7.0",
     "pytest>=9.2.0",
@@ -68,5 +71,5 @@ check_untyped_defs = true
 
 [[tool.mypy.overrides]]
 # Libraries without type information.
-module = ["brushgpt.*", "skimage.*", "scipy.*", "sklearn.*"]
+module = ["brushgpt.*", "skimage.*", "scipy.*", "sklearn.*", "cartograph.*"]
 ignore_missing_imports = true
